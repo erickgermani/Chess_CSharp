@@ -9,6 +9,7 @@ namespace Chess_CSharp
         {
             Board board = new Board();
             board.CreateBoard();
+            board.ShowBoard();
         }
     }
 }

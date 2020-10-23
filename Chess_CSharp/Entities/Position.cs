@@ -4,9 +4,17 @@ using System.Text;
 
 namespace Chess_CSharp.Entities
 {
-    class Position
+    public class Position
     {
-        public string[] Line { get; set; } = new string[8];
-        public string[] Column { get; set; } = new string[8];
+        public int Line { get; set; }
+        public int Column { get; set; }
+        public IPiece Piece { get; set; }
+
+        public Position(int line, int column, IPiece piece)
+        {
+            Line = line;
+            Column = column;
+            Piece = piece;
+        }
     }
 }
