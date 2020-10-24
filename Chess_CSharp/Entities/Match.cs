@@ -47,12 +47,10 @@ namespace Chess_CSharp.Entities
                         }
                         board.Position.Remove(position);
                         board.Position.Add(new Position(returnedPosition[0], returnedPosition[1], position.Piece));
-                        board.ShowBoard();
                         break;
                     }
                     board.Position.Remove(position);
                     board.Position.Add(new Position(returnedPosition[0], returnedPosition[1], position.Piece));
-                    board.ShowBoard();
                     break;
                 }
                 else{
@@ -73,6 +71,7 @@ namespace Chess_CSharp.Entities
                 Turn = Color.White;
             }
             Round++;
+            Console.Clear();
         }
 
         public int[] GetPosition(string position){

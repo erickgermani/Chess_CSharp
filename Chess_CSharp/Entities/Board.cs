@@ -14,7 +14,6 @@ namespace Chess_CSharp.Entities
         public void CreateBoard()
         {
             // Lado Preto
-
             Position.Add(new Position(0, 0, new Rook(Color.Black)));
             Position.Add(new Position(0, 7, new Rook(Color.Black)));
             Position.Add(new Position(0, 1, new Knight(Color.Black)));

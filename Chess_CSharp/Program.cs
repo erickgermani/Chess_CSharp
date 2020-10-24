@@ -9,10 +9,11 @@ namespace Chess_CSharp
         {
             Board board = new Board();
             board.CreateBoard();
-            board.ShowBoard();
-            Console.WriteLine();
             Match match = new Match();
-            while(match.Winner == Enums.Color.WhithoutWinner){
+            while (match.Winner == Enums.Color.WhithoutWinner)
+            {
+                Console.WriteLine($"It's the {match.Round}º round. Turn of: {match.Turn}");
+                board.ShowBoard();
                 Console.WriteLine();
                 match.Action(board);
             }
