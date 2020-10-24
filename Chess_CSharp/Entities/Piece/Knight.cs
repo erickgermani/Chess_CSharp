@@ -4,21 +4,22 @@ namespace Chess_CSharp.Entities.Piece
 {
     public class Knight : IPiece
     {
+        public string Name { get; set; } = "Knight";
+
         public Color Color { get; set; }
 
         public Knight(Color color)
         {
             Color = color;
         }
-
-        public void Destroyed()
+        public bool Move(Board board, Position position, int[] wishedPosition)
         {
-            
+            return false;
         }
 
-        public void Move()
+        public bool VerifyPosition(Board board, Position position, int[] wishedPosition)
         {
-            
+            return false;
         }
 
         public string Show()

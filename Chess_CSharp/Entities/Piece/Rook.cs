@@ -5,6 +5,8 @@ namespace Chess_CSharp.Entities.Piece
 {
     public class Rook : IPiece
     {
+        public string Name { get; set; } = "Rook";
+        
         public Color Color { get; set; }
 
         public Rook(Color color)
@@ -12,14 +14,14 @@ namespace Chess_CSharp.Entities.Piece
             Color = color;
         }
 
-        public void Destroyed()
+        public bool Move(Board board, Position position, int[] wishedPosition)
         {
-            
+            return false;
         }
 
-        public void Move()
+        public bool VerifyPosition(Board board, Position position, int[] wishedPosition)
         {
-            
+            return false;
         }
 
         public string Show()

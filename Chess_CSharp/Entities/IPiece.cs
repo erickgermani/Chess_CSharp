@@ -7,9 +7,11 @@ namespace Chess_CSharp.Entities
 {
     public interface IPiece
     {
+        string Name { get; set; }
         Color Color { get; set; }
-        void Move();
-        void Destroyed();
+
+        bool Move(Board board, Position position, int[] wishedPosition);
+        bool VerifyPosition(Board board, Position position, int[] wishedPosition);
         string Show();
         
     }

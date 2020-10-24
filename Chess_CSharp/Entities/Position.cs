@@ -16,5 +16,6 @@ namespace Chess_CSharp.Entities
             Column = column;
             Piece = piece;
         }
+
     }
 }

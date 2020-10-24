@@ -10,6 +10,12 @@ namespace Chess_CSharp
             Board board = new Board();
             board.CreateBoard();
             board.ShowBoard();
+            Console.WriteLine();
+            Match match = new Match();
+            while(match.Winner == Enums.Color.WhithoutWinner){
+                Console.WriteLine();
+                match.Action(board);
+            }
         }
     }
 }
