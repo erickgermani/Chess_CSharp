@@ -30,22 +30,22 @@ namespace Chess_CSharp.Entities.Piece
                 return false;
             }
             if (wishedPosition[1] == piecePosition.Column) {
-                if (board.Position.Any(x => (x.Line > piecePosition.Line && x.Line <= wishedPosition[0] && x.Column == wishedPosition[1]) 
+                if (board.Positions.Any(x => (x.Line > piecePosition.Line && x.Line <= wishedPosition[0] && x.Column == wishedPosition[1]) 
                 || (x.Line < piecePosition.Line && x.Line >= wishedPosition[0] && x.Column == wishedPosition[1])))
                 {
-                    if(board.Position.Any(x => x.Line == wishedPosition[0] && x.Column == wishedPosition[1] && x.Piece.Color != piecePosition.Piece.Color)){
-                        board.Position.RemoveAll(x => x.Line == wishedPosition[0] && x.Column == wishedPosition[1] && x.Piece.Color != piecePosition.Piece.Color);
+                    if(board.Positions.Any(x => x.Line == wishedPosition[0] && x.Column == wishedPosition[1] && x.Piece.Color != piecePosition.Piece.Color)){
+                        board.Positions.RemoveAll(x => x.Line == wishedPosition[0] && x.Column == wishedPosition[1] && x.Piece.Color != piecePosition.Piece.Color);
                         return true;
                     }
                     return false;
                 }
             }
             else{
-                if (board.Position.Any(x => (x.Column > piecePosition.Column && x.Column <= wishedPosition[1] && x.Line == wishedPosition[0]) 
+                if (board.Positions.Any(x => (x.Column > piecePosition.Column && x.Column <= wishedPosition[1] && x.Line == wishedPosition[0]) 
                 || (x.Column < piecePosition.Column && x.Column >= wishedPosition[1] && x.Column == wishedPosition[0])))
                 {
-                    if(board.Position.Any(x => x.Line == wishedPosition[0] && x.Column == wishedPosition[1] && x.Piece.Color != piecePosition.Piece.Color)){
-                        board.Position.RemoveAll(x => x.Line == wishedPosition[0] && x.Column == wishedPosition[1] && x.Piece.Color != piecePosition.Piece.Color);
+                    if(board.Positions.Any(x => x.Line == wishedPosition[0] && x.Column == wishedPosition[1] && x.Piece.Color != piecePosition.Piece.Color)){
+                        board.Positions.RemoveAll(x => x.Line == wishedPosition[0] && x.Column == wishedPosition[1] && x.Piece.Color != piecePosition.Piece.Color);
                         return true;
                     }
                     return false;

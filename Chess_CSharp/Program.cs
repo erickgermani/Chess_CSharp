@@ -15,7 +15,8 @@ namespace Chess_CSharp
                 Console.WriteLine($"It's the {match.Round}º round. Turn of: {match.Turn}");
                 board.ShowBoard();
                 Console.WriteLine();
-                match.Action(board);
+                Position position = match.ReadPiece(board);
+                match.Move(board, position);
             }
         }
     }
