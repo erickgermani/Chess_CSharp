@@ -1,5 +1,4 @@
 ﻿using Chess_CSharp.Entities;
-using System;
 
 namespace Chess_CSharp
 {
@@ -8,16 +7,9 @@ namespace Chess_CSharp
         static void Main(string[] args)
         {
             Board board = new Board();
-            board.CreateBoard();
-            Match match = new Match();
-            while (match.Winner == Enums.Color.WhithoutWinner)
-            {
-                Console.WriteLine($"It's the {match.Round}º round. Turn of: {match.Turn}");
-                board.ShowBoard();
-                Console.WriteLine();
-                Position position = match.ReadPiece(board);
-                match.Move(board, position);
-            }
+            board.Create();
+            Match match = new Match(board);
+            match.Start();
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Chess_CSharp.Entities.Piece
 {
     public class King : IPiece
     {
-        public string Name { get; set; } = "King";
+        public string Name { get; } = "King";
 
         public Color Color { get; set; }
 

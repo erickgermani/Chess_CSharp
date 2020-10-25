@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Chess_CSharp.Enums;
 
 namespace Chess_CSharp.Entities
@@ -9,23 +8,41 @@ namespace Chess_CSharp.Entities
         public Color Turn { get; set; } = Color.White;
         public int Round { get; set; } = 1;
         public Color Winner { get; set; }
+        public Board Board { get; set; }
 
-        public Position ReadPiece(Board board)
+        public Match(Board board)
+        {
+            Board = board;
+        }
+
+        internal void Start()
+        {
+            while (Winner == Enums.Color.WhithoutWinner)
+            {
+                Console.WriteLine($"It's the {Round}º round. Turn of: {Turn}");
+                Board.Show();
+                Console.WriteLine();
+                Position position = ReadPiece();
+                Action(position);
+            }
+        }
+
+        public Position ReadPiece()
         {
             Position position = null;
             while (true)
             {
                 Console.Write("Which piece do you want to move(Format: a1): ");
                 string choice = Console.ReadLine();
-                int[] returnedPosition = board.GetPosition(choice);
+                int[] returnedPosition = Board.GetPosition(choice);
                 if (returnedPosition.Length == 1)
                 {
                     Console.WriteLine("This position not exist.");
                     continue;
                 }
-                if (board.VerifyPosition(returnedPosition, Turn))
+                if (Board.VerifyPosition(returnedPosition, Turn))
                 {
-                    position = board.Positions.Find(x => x.Line == returnedPosition[0] && x.Column == returnedPosition[1]);
+                    position = Board.Positions.Find(x => x.Line == returnedPosition[0] && x.Column == returnedPosition[1]);
                     break;
                 }
                 else
@@ -37,7 +54,7 @@ namespace Chess_CSharp.Entities
             return position;
         }
 
-        public bool Move(Board board, Position position)
+        public bool Action(Position position)
         {
             while (true)
             {
@@ -48,8 +65,8 @@ namespace Chess_CSharp.Entities
                     Console.Clear();
                     return false;
                 }
-                int[] returnedPosition = board.GetPosition(choice);
-                if (board.Move(position, returnedPosition, choice))
+                int[] returnedPosition = Board.GetPosition(choice);
+                if (Board.MovePiece(position, returnedPosition, choice))
                 {
                     NextTurn();
                     return true;

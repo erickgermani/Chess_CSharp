@@ -5,7 +5,7 @@ namespace Chess_CSharp.Entities.Piece
 {
     public class Pawn : IPiece
     {
-        public string Name { get; set; } = "Pawn";
+        public string Name { get; } = "Pawn";
 
         public Color Color { get; set; }
 
@@ -14,14 +14,15 @@ namespace Chess_CSharp.Entities.Piece
             Color = color;
         }
 
-        public bool Attack(Board board, Position piecePosition, int[] wishedPosition)
+        public bool Attack(Board board, Position position, int[] wishedPosition)
         {
-            if (wishedPosition[0] == piecePosition.Line - 1 || wishedPosition[0] == piecePosition.Line + 1)
+            if (wishedPosition[0] == position.Line - 1 || wishedPosition[0] == position.Line + 1)
             {
-                if (wishedPosition[1] == piecePosition.Column + 1 || wishedPosition[1] == piecePosition.Column - 1)
+                if (wishedPosition[1] == position.Column + 1 || wishedPosition[1] == position.Column - 1)
                 {
-                    if (board.Positions.Any(x => x.Line == wishedPosition[0] && x.Column == wishedPosition[1] && x.Piece.Color != piecePosition.Piece.Color))
+                    if (board.Positions.Any(x => x.Line == wishedPosition[0] && x.Column == wishedPosition[1] && x.Piece.Color != position.Piece.Color))
                     {
+                        board.Positions.RemoveAll(x => x.Line == wishedPosition[0] && x.Column == wishedPosition[1]);
                         return true;
                     }
                 }
@@ -29,66 +30,52 @@ namespace Chess_CSharp.Entities.Piece
             return false;
         }
 
-        public bool Move(Board board, Position piecePosition, int[] wishedPosition)
+        public bool Move(Board board, Position position, int[] wishedPosition)
         {
-            if (piecePosition.Piece.Color == Color.White)
+            if (wishedPosition[1] == position.Column)
             {
-                if (wishedPosition[1] == piecePosition.Column)
+                if (wishedPosition[0] == position.Line - 1 || wishedPosition[0] == position.Line + 1)
                 {
-                    if (wishedPosition[0] == piecePosition.Line - 1)
+                    if (VerifyPosition(board, position, wishedPosition))
                     {
-                        if (VerifyPosition(board, piecePosition, wishedPosition))
-                            return true;
+                        return true;
                     }
+                }
 
-                    if (wishedPosition[0] == piecePosition.Line - 2)
+                if (wishedPosition[0] == position.Line - 2 || wishedPosition[0] == position.Line + 2)
+                {
+                    if (position.Line == 6)
                     {
-                        if (piecePosition.Line == 6)
+                        wishedPosition[0]++;
+                        if (VerifyPosition(board, position, wishedPosition))
+                        {
+                            wishedPosition[0]--;
+                            return true;
+                        }
+                        wishedPosition[0]--;
+                    }
+                    if (position.Line == 1)
+                    {
+                        wishedPosition[0]--;
+                        if (VerifyPosition(board, position, wishedPosition))
                         {
                             wishedPosition[0]++;
-                            if (VerifyPosition(board, piecePosition, wishedPosition))
-                            {
-                                wishedPosition[0]--;
-                                return true;
-                            }
-                            wishedPosition[0]--;
+                            return true;
                         }
+                        wishedPosition[0]++;
                     }
                 }
             }
-            else
-            {
-                if (wishedPosition[1] == piecePosition.Column)
-                {
-                    if (wishedPosition[0] == piecePosition.Line + 1)
-                    {
-                        if (VerifyPosition(board, piecePosition, wishedPosition))
-                            return true;
-                    }
 
-                    if (wishedPosition[0] == piecePosition.Line + 2)
-                    {
-                        if (piecePosition.Line == 1)
-                        {
-                            wishedPosition[0]--;
-                            if (VerifyPosition(board, piecePosition, wishedPosition))
-                            {
-                                wishedPosition[0]++;
-                                return true;
-                            }
-                            wishedPosition[0]++;
-                        }
-                    }
-                }
-            }
-            if (Attack(board, piecePosition, wishedPosition))
+            if (Attack(board, position, wishedPosition))
             {
                 return true;
             }
+
             return false;
         }
 
-        public bool VerifyPosition(Board board, Position piecePosition, int[] wishedPosition)
+        public bool VerifyPosition(Board board, Position position, int[] wishedPosition)
         {
             if (board.Positions.Any(x => x.Line == wishedPosition[0] && x.Column == wishedPosition[1]))
             {
